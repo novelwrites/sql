@@ -213,3 +213,7 @@
 -- SELECT * FROM `ta-dylan`;
 -- SELECT * FROM teamhobbies;
 -- YAY!!! It works!!!!
+-- OOPS - I have a set of duplicate records. I will try to fix by creating an additional table using the DISTINCT command and then
+-- deleting the table with duplicate records.
+-- CREATE TABLE team_hobbies SELECT DISTINCT first_name, last_name, hobby FROM teamhobbies;
+-- SELECT * FROM team_hobbies; Yay!!!! It worked. I have a new table with no duplicates.
