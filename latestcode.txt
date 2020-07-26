@@ -1,0 +1,215 @@
+ 
+-- 2. Created my personal students database using the MYSQL Workbench menu
+-- 3. Create a table on my peronal copy called tekcampers:
+-- CREATE TABLE tekcampers AS 
+-- SELECT * FROM students.tekcamp01;
+-- 4.Transfer over all data unmodified from tc1 table of original students database:
+-- SELECT * FROM tekcampers; 
+-- 5. Add missing students:
+-- INSERT INTO tekcampers (first_name, last_name, gender, education) VALUES
+-- ('Monica', 'Howard', 'F', null),
+-- ('Devon', 'Brewster', 'M', null),
+-- ('John', 'Kol', 'M', null),
+-- ('Cody', 'Clark', 'M', null),
+-- ('Tyler', 'Clements', 'M', null),
+-- ('John', 'Bosarov', 'M', null),
+-- ('Kevin', 'Keesee', 'M', null),
+-- ('Gowtham', 'Katta', 'M', null),
+-- ('Aaron', 'White', 'M', null),
+-- ('Justin', 'Cheng', 'M', null),
+-- ('Vimala', 'Murthy', 'F', null)
+-- ;
+-- 6. Need to remove records of students no longer part of TEKcamp
+-- I kept getting error 1175 because of safe mode. After exploring what to do on StackOver Flow I decided
+-- to disable safe mode programmically so I wouldn't have to reconnect to the database. 
+-- SET SQL_SAFE_UPDATES = 0;
+-- DELETE FROM tekcampers 
+-- WHERE id = 9;
+-- DELETE FROM tekcampers 
+-- WHERE id = 20;
+-- DELETE FROM tekcampers 
+-- WHERE id = 26;
+-- Phoenix showed me how to see my table again!!!! Yay!!!
+-- SELECT * FROM tekcampers;
+-- 7. Need to switch columns for gender and education. 
+-- Will need to correct genders and set education to null: 
+-- UPDATE tekcampers 
+-- SET gender = education;
+-- Set education to null:
+-- UPDATE tekcampers
+-- SET education = null;
+-- SELECT * FROM tekcampers;
+-- Code below corrects issue of not incrementing primary key when inserting new records:
+-- ALTER TABLE tekcampers 
+-- MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT PRIMARY KEY;
+-- SELECT * FROM tekcampers;
+-- SELECT database(); Tells me which database I am using
+-- I need to correct the gender column in the records where the gender is incorrect.
+-- UPDATE tekcampers SET gender = "F" WHERE (id = 4 OR id = 10 OR id = 28 OR id = 38);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers SET gender = "M" WHERE (id = 2 OR id = 15 OR id = 22 OR id = 24 OR id = 29);
+-- UPDATE tekcampers SET gender = "M" WHERE (id = 30 OR id = 31 OR id = 32 OR id = 33 OR id = 34 OR id = 35); 
+-- UPDATE tekcampers SET gender = "M" WHERE (id = 36 OR id = 37);
+-- SELECT * FROM tekcampers;
+-- 7. Update education field from Slack entries
+-- UPDATE tekcampers
+-- SET education = "High School"
+-- WHERE (id = 14 OR id = 25 OR id = 34);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Some College"
+-- WHERE (id = 7 OR id = 12 OR id = 15 OR id = 19 OR id = 22 OR id = 24 OR id = 29 OR id = 31 OR id = 37);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Associates Degree"
+-- WHERE (id = 8 OR id = 17);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Bachelors Degree"
+-- WHERE (id = 1 OR id = 4 OR id = 5 OR id = 6 OR id = 11 OR id = 16 OR id = 18 OR id = 32 OR id = 33 OR id = 35);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Masters Degree"
+-- WHERE (id = 3 OR id = 13 OR id = 38);
+-- UPDATE tekcampers
+-- SET education = "Doctorate Degree"
+-- WHERE (id = 10);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Masters Degree"
+-- WHERE (id = 21);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Masters Degree"
+-- WHERE (id = 23);
+-- SELECT * FROM tekcampers;
+-- UPDATE tekcampers
+-- SET education = "Some College"
+-- WHERE (id = 30);
+-- SELECT * FROM tekcampers;
+-- 8. Perform a series SQL queries that return data:
+-- SELECT * FROM tekcampers
+-- WHERE length(last_name) > 7;
+-- SELECT * FROM tekcampers
+-- order by first_name;
+-- SELECT * FROM tekcampers
+-- order by last_name;
+-- SELECT * FROM tekcampers
+-- WHERE gender = "M";
+-- SELECT * FROM tekcampers
+-- WHERE gender = "F";
+-- SELECT * FROM tekcampers
+-- WHERE education = "Masters Degree";
+-- SELECT * FROM tekcampers
+-- WHERE education = "Bachelors Degree";
+-- SELECT * FROM tekcampers
+-- WHERE education = "Associates Degree";
+-- SELECT * FROM tekcampers
+-- WHERE (education is null OR education = "High School" OR education = "Some College");
+-- 9. Create another table in my database named after my TA and made up of my team members:
+-- SELECT * FROM tekcampers so I can see table and itentify team members
+-- CREATE TABLE `ta-dylan` AS 
+-- SELECT * FROM tekcampers 
+-- WHERE (id = 3 OR id = 4 OR id = 5 OR id = 10 OR id = 11 OR id = 13 OR id = 14 OR id = 15 OR id = 18 OR id = 19 OR id = 30 OR id = 38);
+-- SELECT * FROM `ta-dylan`;
+-- SELECT database Verified connection AND correct database
+-- SELECT * FROM `ta-dylan`;
+-- 10. Create another table called hobbies and using the information from Slack insert a hobby for each student 
+-- CREATE TABLE hobbies (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- hobby varchar(200)
+-- );
+-- SELECT * FROM hobbies;
+-- SELECT * FROM tekcampers
+-- INSERT INTO hobbies (hobby) VALUES
+-- ('Reading'),
+-- ('Motorcycle Riding');
+-- SELECT * FROM hobbies;
+-- INSERT INTO hobbies (hobby) VALUES
+-- ('Video Games'),
+-- ('Golfing'),
+-- ('Cattle Rustling'),
+-- ('Gardening'),
+-- ('Ariel Yoga'),
+-- ('Running'),
+-- ('Working Out'),
+-- ('Pickle Ball'),
+-- ('Engineering Projects With Kids'),
+-- ('Jiu Jitsu'),
+-- ('Writing'),
+-- ('Cooking'),
+-- ('Eating'),
+-- ('Music'),
+-- ('Hockey'),
+-- ('Soccer'),
+-- ('Longboarding'),
+-- ('Growing Peppers'),
+-- ('Gaming'),
+-- ('Interior Decoration'),
+-- ('Playing Piano'),
+-- ('Code'),
+-- ('Bicycling')
+-- ;
+-- SELECT * FROM hobbies;
+-- SELECT * FROM tekcampers;
+-- 11. Create another table that matches student hobbies with the students in my TA team:
+-- CREATE TABLE teamhobbies(
+-- teammate_id INT NOT NULL REFERENCES `ta-dylan`(id),
+-- hobby_id INT NOT NULL REFERENCES `ta-dylan` (hobby_id)
+-- );
+-- SELECT * FROM teamhobbies; Verified teamhobbies table is created with teammate and hobby columns
+-- SELECT * FROM `ta-dylan`; Displayed TA team to write down id numbers of teammates for next step
+-- Next step: insert into teamhobbies table teammates and hobbies:
+-- SELECT * FROM hobbies; Displayed hobbies table to get id numbers of hobbies for next step
+-- INSERT INTO teamhobbies (teammate_id, hobby_id) VALUES Inserts id numbers from ta-dylan and hobbies in preparation for join.
+-- (3, 25),
+-- (4, 16),
+-- (5, 11),
+-- (10, 2),
+-- (11, 13),
+-- (13, 22),
+-- (14, 9),
+-- (15, 21),
+-- (18, 3),
+-- (19, 1),
+-- (30, 24),
+-- (38, 6)
+-- ;
+-- SELECT * FROM teamhobbies;
+-- After doing some additional research I decided to delete teamhobbies and recreate it so
+-- so that I will be able to use INNER JOIN and meet the criteria for Question 11.
+-- SELECT database(); -- Verified connection AND correct database
+-- USE `tc1-nancy-golden`;
+-- SELECT database();
+-- DROP TABLE IF EXISTS teamhobbies; Deleted teamhobbies
+-- SELECT * FROM teamhobbies;
+-- create table teamhobbies (first_name varchar(100), last_name varchar(100), hobby varchar(100));
+-- SELECT * FROM teamhobbies; Successfully recreated with correct columns
+-- CREATE TABLE teammate_hobby (teammate_id int, hobby_id int);
+-- SELECT * FROM teammate_hobby;
+-- INSERT INTO teammate_hobby VALUES -- Inserts from ta-dylan and hobbies in preparation for join.
+-- (3, 25),
+-- (4, 16),
+-- (5, 11),
+-- (10, 2),
+-- (11, 13),
+-- (13, 22),
+-- (14, 9),
+-- (15, 21),
+-- (18, 3),
+-- (19, 1),
+-- (30, 24),
+-- (38, 6)
+-- ;
+-- SELECT * FROM teammate_hobby;
+-- INSERT INTO teamhobbies
+-- SELECT first_name, last_name, hobby
+-- FROM `ta-dylan` tad
+-- INNER JOIN teammate_hobby tmh
+-- ON tad.id = tmh.teammate_id
+-- INNER JOIN hobbies hob
+-- ON hob.id = tmh.hobby_id;
+-- SELECT * FROM teammate_hobby;
+-- SELECT * FROM `ta-dylan`;
+-- SELECT * FROM teamhobbies;
+-- YAY!!! It works!!!!
